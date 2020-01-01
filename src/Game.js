@@ -29,8 +29,7 @@ class Game {
                 this.mainMenu.update(this.canvas, this.context, this.startGame);
                 break;
             case "play":
-                this.context.fillStyle = "black";
-                this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                this.world.update(this.context, this.canvas);
                 break;
             default:
                 break;
