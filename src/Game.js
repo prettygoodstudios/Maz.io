@@ -1,4 +1,5 @@
-import MainMenu from "./MainMenu";
+import MainMenu from "./screens/MainMenu";
+import World from "./screens/World";
 
 class Game {
     mode = "main-menu";
@@ -7,12 +8,18 @@ class Game {
     mainMenu = null;
     canvas = null;
     context = null;
+    world = null;
 
     constructor(canvas, context){
         this.canvas = canvas;
         this.context = context;
         this.mainMenu = new MainMenu(canvas, context, this.startGame);
-        window.setInterval(this.update, 1000/this.fps);
+        //window.setInterval(() => this.update(), 1000/this.fps);
+        const updater = () => {
+            this.update();
+            window.requestAnimationFrame(updater);
+        }
+        window.requestAnimationFrame(updater);
     }
 
 
@@ -21,14 +28,18 @@ class Game {
             case "main-menu":
                 this.mainMenu.update(this.canvas, this.context, this.startGame);
                 break;
+            case "play":
+                this.context.fillStyle = "black";
+                this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                break;
             default:
                 break;
         }
     }
 
-    startGame(){
-        this.state = "play";
-        console.log("let's play!");
+    startGame = () => {
+        this.world = new World();
+        this.mode = "play";
     }
 
 }  

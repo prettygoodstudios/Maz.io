@@ -1,9 +1,9 @@
-import Button from "./widgets/Button";
+import Button from "../widgets/Button";
 
 class MainMenu {
     background = "brown";
     fontStyle = "Avenir";
-    fontSize = "200px";
+    fontSize = "3em";
     fontColor = "white";
     playButton = null;
   
@@ -17,7 +17,7 @@ class MainMenu {
       context.fillStyle = this.fontColor;
       context.font = this.fontSize + " " + this.fontStyle;
       context.textAlign = "center";
-      context.fillText("Maz.io", canvas.width/2, canvas.height/2);
+      context.fillText("Maz.io", canvas.width/2, canvas.height/2-100);
       context.textAlign = "left";
       this.playButton.update(context, canvas);
     }

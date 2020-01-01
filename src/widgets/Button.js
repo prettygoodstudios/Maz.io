@@ -46,7 +46,7 @@ class Button {
         context.fillRect(this.x, this.y, this.width, this.height);
         context.fillStyle = this.color;
         context.textAlign = "center";
-        context.textBaseLine = "center";
+        context.textBaseLine = "middle";
         context.font = "2em Avenir";
         context.fillText(this.text, this.x+this.width*0.5, this.y+this.height*0.5);
         context.textAlign = "left";
