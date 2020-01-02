@@ -8,7 +8,7 @@ class Snake {
     constructor(direction){
         this.lastUpdate = new Date();
         for(let i = 0; i < 4; i++){
-            this.segments.push(new SnakeSegment(-i*50+50, 50, direction));
+            this.segments.push(new SnakeSegment(-i*45+50, 50, direction));
         }
     }
 
@@ -54,6 +54,7 @@ class SnakeSegment {
             case "left":
                 if(prev.x > this.x){
                     this.direction = prev.y < this.y ? "up" : "down";
+                    this.x = prev.x;
                     return this.update(context, canvas, prev, color, direction, speed);
                 }
                 this.x -= speed;
@@ -61,6 +62,7 @@ class SnakeSegment {
             case "right":
                 if(prev.x < this.x){
                     this.direction = prev.y < this.y ? "up" : "down";
+                    this.x = prev.x;
                     return this.update(context, canvas, prev, color, direction, speed);
                 }
                 this.x += speed;
@@ -68,6 +70,7 @@ class SnakeSegment {
             case "up":
                 if(prev.y > this.y){
                     this.direction = prev.x < this.x ? "left" : "right";
+                    this.y = prev.y;
                     return this.update(context, canvas, prev, color, direction, speed);
                 }
                 this.y -= speed;
@@ -75,6 +78,7 @@ class SnakeSegment {
             case "down":
                 if(prev.y < this.y){
                     this.direction = prev.x < this.x ? "left" : "right";
+                    this.y = prev.y;
                     return this.update(context, canvas, prev, color, direction, speed);
                 }
                 this.y += speed;
@@ -86,7 +90,7 @@ class SnakeSegment {
         if(getPosition){
             let offSetX = this.x - getPosition()[0];
             let offSetY = this.y - getPosition()[1];
-            context.fillRect(200 + offSetX, 50 + offSetY, this.size, this.size);
+            context.fillRect(50 + offSetX, 200 + offSetY, this.size, this.size);
         }
     }
 }

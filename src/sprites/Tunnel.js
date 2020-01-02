@@ -17,7 +17,7 @@ class Tunnel {
 
     update = (context, canvas, position) => {
         context.fillStyle = this.color;
-        let offSetX = 50-position[0];
+        let offSetX = 0-position[0];
         let offSetY = 50-position[1];
         context.fillRect(this.x+offSetX, this.y+offSetY, this.horizontal ? this.length : width, this.horizontal ? width : this.length);
     }
