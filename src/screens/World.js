@@ -1,13 +1,15 @@
-import Tunnel from "../widgets/Tunnel";
+import Tunnel from "../sprites/Tunnel";
+import Snake from "../sprites/Snake";
 
 class World {
     direction = "right";
     groundColor = "brown";
     tunnelColor = "white";
-
+    snake = null;
     tunnels = [];
 
     constructor(){
+        this.snake = new Snake("right");
         window.addEventListener("keydown", (e) => {
             switch(e.key.toLowerCase()){
                 case "w":
@@ -51,6 +53,7 @@ class World {
         this.tunnels.forEach((t) => {
             t.update(context, canvas);
         });
+        this.snake.update(context, canvas, this.direction);
     }
 }
 

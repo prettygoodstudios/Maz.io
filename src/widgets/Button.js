@@ -8,6 +8,7 @@ class Button {
     y = 0;
     width = 0;
     height = 0;
+    lastUpdated = new Date();
   
     constructor(text, onClick, x, y, width, height){
        this.text = text;
@@ -17,8 +18,15 @@ class Button {
        this.width = width;
        this.height = height;
        this.hovering = false;
-       window.addEventListener("click", (e) => this.clickHandler(e));
-       window.addEventListener("mousemove", (e) => this.hoverHandler(e));
+       this.lastUpdated = new Date();
+       window.addEventListener("click", (e) => this.isVisible() && this.clickHandler(e));
+       window.addEventListener("mousemove", (e) => this.isVisible() && this.hoverHandler(e));
+    }
+
+    isVisible = () => {
+        const now = new Date().getTime();
+        const diff = now - this.lastUpdated.getTime();
+        return diff < 100;
     }
 
     clickHandler = (e) => {
@@ -42,6 +50,7 @@ class Button {
     }
   
     update = (context, canvas) => {
+        this.lastUpdated = new Date();
         context.fillStyle = this.hovering ? this.hoverColor : this.backgroundColor;
         context.fillRect(this.x, this.y, this.width, this.height);
         context.fillStyle = this.color;
