@@ -1,19 +1,29 @@
 class Snake {
     segments = [];
     color = "red";
-    speed = 3;
+    speed = 0.1;
+    lastUpdate = 0;
+    deltaX = 0;
 
     constructor(direction){
+        this.lastUpdate = new Date();
         for(let i = 0; i < 4; i++){
             this.segments.push(new SnakeSegment(-i*50+50, 50, direction));
         }
     }
 
     update = (context, canvas, direction) => {
+        this.deltaX = new Date().getTime() - this.lastUpdate.getTime();
+        this.lastUpdate = new Date();
         this.segments.forEach((seg, i) => {
             let prev = i >= 1 ? i-1 : 0;
-            seg.update(context, canvas, this.segments[prev], this.color, direction, this.speed);
+            seg.update(context, canvas, this.segments[prev], this.color, direction, this.speed*this.deltaX, this.getPosition);
         });
+    }
+
+    getPosition = () => {
+        const {x, y} = this.segments[0];
+        return [x, y];
     }
 }
 
@@ -29,7 +39,7 @@ class SnakeSegment {
         this.direction = direction;
     }
 
-    update = (context, canvas, prev, color, direction, speed) => {
+    update = (context, canvas, prev, color, direction, speed, getPosition) => {
         if(this == prev){
             const leftRight = this.direction == "left" && direction == "right";
             const rightLeft = this.direction == "right" && direction == "left"; 
@@ -73,8 +83,11 @@ class SnakeSegment {
                 break;
         }
         context.fillStyle = color;
-        
-        context.fillRect(this.x, this.y, this.size, this.size);
+        if(getPosition){
+            let offSetX = this.x - getPosition()[0];
+            let offSetY = this.y - getPosition()[1];
+            context.fillRect(200 + offSetX, 50 + offSetY, this.size, this.size);
+        }
     }
 }
 

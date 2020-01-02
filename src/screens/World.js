@@ -51,7 +51,7 @@ class World {
         context.fillStyle = this.groundColor;
         context.fillRect(0, 0, canvas.width, canvas.height);
         this.tunnels.forEach((t) => {
-            t.update(context, canvas);
+            t.update(context, canvas, this.snake.getPosition());
         });
         this.snake.update(context, canvas, this.direction);
     }
